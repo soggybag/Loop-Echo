@@ -73,3 +73,11 @@ TL022 / TL062-class: much less (and less varying) supply current than a TL072, s
 The **1N914 in the 78L05 ground leg** that runs the PT2399 at ~5.6–5.7 V for "headroom": above the 5.5 V datasheet maximum (madbean admits the early-failure risk). Keep the PT2399 at 5.0 V.
 
 **Loop Echo specifics:** #1 replaces the current modulation feed (TRI → C30 4µ7 → DEPTH → R30 100k → C31 1µ → VCO pin 6) and R11 1k: R11 → 2k7, DEPTH wiper → 33k + 10 µ → the TIME / R11 node. #2 is a voicing option; with the effects loop the repeats are already re-processed, so try the stock (brighter) values first.
+
+## v1.0 (2026-10-25): SMD, ordered as a prototype
+
+- **Jacks:** separate SEND and RETURN (the user's choice). RETURN is a switched mono jack: pads RET (tip), RETN (switch / normal contact, wired to SEND) and RG. No plug = the loop closes internally.
+- **TONE** (new, user request): B50k rheostat + 2k2 into 10n between the return coupling cap and U3B. ~7 kHz (CW) to ~300 Hz (CCW). It sits in the feedback path, so it acts on **every repeat** whether the loop or the internal path is used: repeats darken (or stay bright) cumulatively, like an analog delay.
+- **Dragonfish fixes:** TIME minimum 1k → 2k7; LFO → DEPTH → 33k + 10µ into TMIN (the TIME / 2k7 node); LFO op-amp LM358.
+- **Parts (JLC):** PT2399-SN C126407 (the only extended part), TL072 C6961 ×2, LM358 C7950, AMS1117-5.0 C6187, SS14 C2480, 1N4148W C81598; 0805 resistors / caps (2n2 C0G C28260), 47µ 1206 C96123 (REF, VB), 22µ ×2 C45783 bulk. `FT Rotation Offset` 270 on the SOIC op-amps (the pattern seen this month); check the PT2399 and SOT-223 in JLC's preview.
+- **Not breadboarded:** order as v1.0 prototype boards. If something needs changing, it's a v1.1.
