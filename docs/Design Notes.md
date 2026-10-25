@@ -48,3 +48,28 @@
 - **Tap tempo:** needs a microcontroller.
 
 The Multiplex document (1776 Effects) says it's for personal use only. We're using its ideas, not its circuit or layout, and won't use the trademarked mode names.
+
+## Ideas from the Dragonfish (2026-10-25)
+
+Source: madbean **Dragonfish** (`~/Documents/Guitar/Effects/Schematics/Dragonfish.pdf`, schematic p.13; close to the Tonepad Rebote 2.5 plus LFO). Ideas only.
+
+### 1. LFO injection point: even modulation depth across TIME (adopt)
+
+The PT2399 holds pin 6 (VCO) at about **2.8 V**; the clock follows the current drawn out of it, I = 2.8 V / (R_TIME + R_min).
+- **Current way (ours):** LFO current straight into **pin 6**. Its share of I is tiny at short delays and large at long ones (with ±15 µA: about ±2 % at 3.7k total, ±27 % at 51k). Depth swings wildly as TIME turns.
+- **Dragonfish way:** inject into the node **between the TIME pot and the fixed minimum resistor** (TIME → node → R_min → GND), through **33k + 10 µ**. Solving the node: ΔI / I = −I_lfo · R_min / 2.8 V, **independent of TIME**. Even depth across the range (pitch wobble still grows a little with delay time, but far less).
+- **Change:** R_min 1k → **2k7** (also sets the shortest delay, ~50 ms) and LFO → DEPTH → **33k + 10 µ** → the TIME / R_min node (instead of 100k + 1 µ → pin 6). Re-trim DEPTH range on the breadboard (R_min sets the injection gain).
+
+### 2. Darker, "analog-voiced" repeats (option)
+
+Dragonfish adds RC poles **before** the chip (IC1A → 1 µ → **10k / 22n → 10k / 10n** → the PT2399 LPF1 with 10k, 33k, 1n) and uses **15n** caps in LPF2 (vs 10n / 2n2), then **1k5 + 22n** before MIX / RPT. Repeats are darker and get darker each pass, and more clock noise is filtered.
+
+### 3. Low-power op-amp for the LFO
+
+TL022 / TL062-class: much less (and less varying) supply current than a TL072, so less LFO tick on the supply. Check JLC basic status (LM358 C7950 is a known option).
+
+### Skip
+
+The **1N914 in the 78L05 ground leg** that runs the PT2399 at ~5.6–5.7 V for "headroom": above the 5.5 V datasheet maximum (madbean admits the early-failure risk). Keep the PT2399 at 5.0 V.
+
+**Loop Echo specifics:** #1 replaces the current modulation feed (TRI → C30 4µ7 → DEPTH → R30 100k → C31 1µ → VCO pin 6) and R11 1k: R11 → 2k7, DEPTH wiper → 33k + 10 µ → the TIME / R11 node. #2 is a voicing option; with the effects loop the repeats are already re-processed, so try the stock (brighter) values first.
