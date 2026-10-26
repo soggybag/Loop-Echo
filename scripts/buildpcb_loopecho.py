@@ -11,6 +11,10 @@ _sp = importlib.util.spec_from_file_location('sx_local', __file__.rsplit('/', 1)
 parse, dump, find, find1 = _sx.parse, _sx.dump, _sx.find, _sx.find1
 NET, TEMPLATE, OUT = sys.argv[1:4]
 PRJ = OUT.rsplit('/', 1)[0]
+import glob, atexit
+_pro = glob.glob(PRJ + '/*.kicad_pro')     # saving a board built from a template rewrites the project file with default
+_pro_text = {p: open(p).read() for p in _pro}   # net classes (lost the Power class on four boards, 2026-10-26): put it back
+atexit.register(lambda: [open(p, 'w').write(t) for p, t in _pro_text.items()])
 FPDIR = '/Applications/KiCad/KiCad.app/Contents/SharedSupport/footprints'
 mm = pcbnew.FromMM; tomm = pcbnew.ToMM
 def V(x, y): return pcbnew.VECTOR2I(mm(x), mm(y))
