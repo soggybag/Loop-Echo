@@ -7,7 +7,8 @@ v0.1 (breadboard, TRS insert) is kept as build_loopecho_v0.1.py.
     RET -> 1u -> TONE (B50k + 2k2 into 10n: ~7 kHz .. 300 Hz, every repeat) -> U3B -> 1k + 1N4148W limiter -> REPEAT -> PT2399
   - LFO U4 (LM358: integrator + Schmitt, RATE 47k + B1M, 1u) -> DEPTH -> 33k + 10u -> TMIN (the TIME / 2k7 node):
     even modulation depth across TIME (Dragonfish)
-  - Power: SS14, 2 x 22u bulk, VB 10k/10k + 47u; status LED to the footswitch header (1 IN, 2 LED_K, 3 GND, 4 OUT)
+  - Power: SS14, 2 x 22u bulk, VB 10k/10k + 47u; status LED; 1x6 header to the SwitchPCB v2 (IJ IN LED GND OUT OJ)
+  - v1.0 board: 1590BB landscape, all five jacks on the top wall (outside view): OUT  RETURN  DC  SEND  IN
 usage: build_loopecho.py <out.kicad_sch>"""
 from sch import *
 import sys
@@ -20,7 +21,6 @@ FR = 'Resistor_SMD:R_0805_2012Metric_Pad1.20x1.40mm_HandSolder'
 FC = 'Capacitor_SMD:C_0805_2012Metric_Pad1.18x1.45mm_HandSolder'
 FC12 = 'Capacitor_SMD:C_1206_3216Metric_Pad1.33x1.80mm_HandSolder'
 FPOT = 'Potentiometer_THT:Potentiometer_Alpha_RD901F-40-00D_Single_Vertical'
-FPAD = 'Connector_Wire:SolderWire-0.5sqmm_1x01_D0.9mm_OD2.1mm'
 FSO8 = 'Package_SO:SOIC-8_3.9x4.9mm_P1.27mm'
 LR = {'100': 'C17408', '1k': 'C17513', '2k2': 'C17520', '2k7': 'C17530', '10k': 'C17414', '15k': 'C17475', '22k': 'C17560',
       '33k': 'C17633', '47k': 'C17713', '100k': 'C149504', '1M': 'C17514', '4k7': 'C17673'}
@@ -69,22 +69,20 @@ def rheo(r):
     return (p3[0], p3[1] + g(1))
 def D(x, y, rot, d, text='t'):
     r = nx('D'); s.part(r, 'Diode', '1N4148W', '1N4148W', x, y, rot, fp='Diode_SMD:D_SOD-123', lcsc='C81598', desc=d, text=text); return r
-def PAD(name, x, y, right=True, d=''):
-    r = nx('J')
-    s.part(r, 'Connector_Generic', 'Conn_01x01', name, x, y, 0 if right else 180, fp=FPAD, desc=d or f'Wire pad: {name}', bom=False,
-           text=((x + 2.54, y - 1.27), (x + 2.54, y + 1.27), 'left') if right else ((x - 2.54, y - 1.27), (x - 2.54, y + 1.27), 'right'))
-    return P(r, '1')
 
 # ================================================================ POWER, VB, LED, HEADER, PADS
-s.box('POWER (SS14, AMS1117-5.0 for the PT2399), VB, STATUS LED, FOOTSWITCH HEADER, JACK PADS', g(4), g(6), g(60), g(96))
-p = PAD('9V', g(8), g(12), d='Wire pad: +9 V from the DC jack'); W(p, (g(10), g(12)))
+s.box('POWER (SS14, AMS1117-5.0 for the PT2399), VB, STATUS LED, FOOTSWITCH HEADER, JACKS', g(4), g(6), g(60), g(96))
+s.part('J6', 'Connector', 'Barrel_Jack_Switch', 'DC 9V', g(7), g(15), 0, mirror='x', fp='SuperFreq:DC_Jack_2.1mm_A-4118_Horizontal',
+       desc='Tayda A-4118 2.1 mm DC jack, centre negative (Boss). Pads 2 + 3 tied, so it works whichever blade is the sleeve',
+       text=((g(4.5), g(9.6)), (g(4.5), g(10.6)), 'left'), bom=False)
+W(P('J6', '3'), P('J6', '2')); W(P('J6', '2'), (g(10), g(12)))
+W(P('J6', '1'), (g(10), g(20))); GND((g(10), g(20))); s.power('PWR_FLAG', (g(10), g(20)))
 s.part('D1', 'Diode', 'SS14', 'SS14', g(13), g(12), 180, fp='Diode_SMD:D_SMA', lcsc='C2480', desc='Reverse-polarity protection', text='t'); _n['D'] = 1
 W((g(10), g(12)), P('D1', '2')); W(P('D1', '1'), (g(18), g(12)))
 V9((g(18), g(12))); s.power('PWR_FLAG', (g(18), g(12)))
 W((g(18), g(12)), (g(42), g(12)))
 for x, v, d in ((22, '22u', 'Bulk'), (26, '22u', 'Bulk'), (30, '100n', 'U2 decoupling'), (34, '100n', 'U3 decoupling'), (38, '100n', 'U4 decoupling'), (42, '10u', 'Regulator input')):
     c = Cv(v, g(x), g(15.5), d=d); W((g(x), g(12)), P(c, '1')); GND(P(c, '2'))
-p = PAD('G', g(8), g(20), d='Wire pad: DC jack ground'); W(p, (g(10), g(20))); GND((g(10), g(20))); s.power('PWR_FLAG', (g(10), g(20)))
 s.part('U5', 'Regulator_Linear', 'AMS1117-5.0', 'AMS1117-5.0', g(20), g(32), 0, fp='Package_TO_SOT_SMD:SOT-223-3_TabPin2', lcsc='C6187',
        desc='5 V for the PT2399', text='t')
 q = P('U5', '3'); W(q, (q[0] - g(2), q[1])); V9((q[0] - g(2), q[1]))
@@ -105,21 +103,23 @@ for ref, x, sym in (('U2', 28, 'TL072'), ('U3', 34, 'TL072'), ('U4', 40, 'LM358'
 r = Rv('4k7', g(10), g(68), side='l', d='Status LED current'); V9(P(r, '1'))
 s.part('D6', 'Device', 'LED', 'LED', g(10), g(74), 90, fp='LED_THT:LED_D3.0mm', desc='Status LED (panel); cathode to the footswitch via the header', text='r', bom=False)
 W(P(r, '2'), P('D6', '2')); W(P('D6', '1'), (g(10), g(78)), (g(13), g(78))); lab('LED_K', (g(13), g(78)))
-s.part('J1', 'Connector_Generic', 'Conn_01x04', 'IN/LED/GND/OUT', g(30), g(80), 0, fp='Connector_PinHeader_2.54mm:PinHeader_1x04_P2.54mm_Vertical',
-       desc='To the footswitch board: 1 IN, 2 LED_K, 3 GND, 4 OUT', text=((g(32), g(76)), (g(32), g(77.2)), 'left'), bom=False)
-_n['J'] = 1
-for pin, net in (('1', 'IN'), ('2', 'LED_K'), ('4', 'OUT')):
+s.part('J1', 'Connector_Generic', 'Conn_01x06', 'IJ/IN/LED/GND/OUT/OJ', g(30), g(80), 0, fp='Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical',
+       desc='To the SwitchPCB v2 (same order as its pads): 1 IJ, 2 IN, 3 LED_K, 4 GND, 5 OUT, 6 OJ', text=((g(32), g(76)), (g(32), g(77.2)), 'left'), bom=False)
+for pin, net in (('1', 'IJ'), ('2', 'IN'), ('3', 'LED_K'), ('5', 'OUT'), ('6', 'OJ')):
     q = P('J1', pin); W(q, (q[0] - g(3), q[1])); lab(net, (q[0] - g(3), q[1]), 'l')
-q = P('J1', '3'); W(q, (q[0] - g(3), q[1])); GND((q[0] - g(3), q[1]))
-PD = {'IG': 'Wire pad: input jack sleeve', 'OG': 'Wire pad: output jack sleeve', 'SEND': 'Wire pad: SEND jack tip',
-      'SG': 'Wire pad: SEND jack sleeve', 'RET': 'Wire pad: RETURN jack tip',
-      'RETN': 'Wire pad: RETURN jack switch (normal) contact: closes the loop internally with no plug', 'RG': 'Wire pad: RETURN jack sleeve'}
-for i, (name, net) in enumerate((('IG', None), ('OG', None), ('SEND', 'SEND'), ('SG', None), ('RET', 'RET'), ('RETN', 'SEND'), ('RG', None))):
-    yy = g(62) + g(3) * i
-    p = PAD(name, g(42), yy, d=PD[name])
-    q = (p[0] + g(4), p[1]); W(p, q)
-    if net: lab(net, q)
-    else: GND(q)
+q = P('J1', '4'); W(q, (q[0] - g(8), q[1]), (q[0] - g(8), q[1] + g(4))); GND((q[0] - g(8), q[1] + g(4)))
+# board-mounted jacks (PJ-646F stereo switched; outside view of the top wall: OUT  RETURN  DC  SEND  IN)
+JK = (('J2', 'INPUT', 38, 67, {'T': 'IJ'}), ('J3', 'OUTPUT', 50, 67, {'T': 'OJ'}),
+      ('J4', 'SEND', 38, 85, {'T': 'SEND'}), ('J5', 'RETURN', 50, 85, {'T': 'RET', 'TN': 'SEND'}))
+for ref, name, x, y, nets in JK:
+    s.part(ref, 'Connector_Audio', 'AudioJack3_Switch', name, g(x), g(y), 0, fp='SuperFreq:Jack_6.35mm_PJ-646F_Horizontal',
+           desc=f'{name} jack: Tayda A-6728 (PJ-646F)' + (': no plug -> tip switch ties RET to SEND (internal loop)' if ref == 'J5' else ''),
+           text=((g(x - 1.5), g(y - 4.4)), (g(x - 1.5), g(y - 3.4)), 'left'), bom=False)
+    for pin in ('T', 'TN', 'R', 'RN', 'SN'):
+        q = P(ref, pin)
+        if pin in nets: W(q, (q[0] + g(3), q[1])); lab(nets[pin], (q[0] + g(3), q[1]))
+        else: s.noconnect(q)
+    q = P(ref, 'S'); W(q, (q[0] + g(2), q[1])); gnd_down((q[0] + g(2), q[1]), 1)
 
 # ================================================================ INPUT + MIXER (U2)
 s.box('INPUT BUFFER (U2A) + OUTPUT MIXER (U2B): as Small Time', g(64), g(6), g(134), g(70))

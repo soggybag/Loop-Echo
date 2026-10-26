@@ -1,0 +1,4 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "SuperFreq")(type "KiCad")(uri "${KIPRJMOD}/SuperFreq.pretty")(options "")(descr "Loop Echo jacks"))
+)
