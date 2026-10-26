@@ -1,0 +1,19 @@
+Side,Label,X landscape (mm),Y landscape (mm),X Tayda portrait (mm),Y Tayda portrait (mm),"Diameter (mm, raw aluminium)"
+A,TIME,-32.00,15.00,15.00,32.00,7.5
+A,REPEAT,0.00,15.00,15.00,-0.00,7.5
+A,MIX,32.00,15.00,15.00,-32.00,7.5
+A,RATE,-32.00,-3.00,-3.00,32.00,7.5
+A,DEPTH,0.00,-3.00,-3.00,-0.00,7.5
+A,TONE,32.00,-3.00,-3.00,-32.00,7.5
+A,LOOP LED,-28.00,-14.20,-14.20,28.00,3.2
+A,BYPASS LED,28.00,-14.20,-14.20,-28.00,3.2
+A,LOOP footswitch,-28.00,-26.00,-26.00,28.00,12.2
+A,BYPASS footswitch,28.00,-26.00,-26.00,-28.00,12.2
+
+"Jack wall (top long wall): ESTIMATED depths, test-fit one jack first (see README). Along = X on the face; Depth = from the face's outside surface"
+Wall,Label,Along (mm),Depth (mm),Diameter (mm)
+jack wall,OUT,-39.30,22.5,11.5
+jack wall,RETURN,-16.90,22.5,11.5
+jack wall,DC 9V,0.00,21.0,8.1
+jack wall,SEND,16.90,22.5,11.5
+jack wall,IN,39.30,22.5,11.5

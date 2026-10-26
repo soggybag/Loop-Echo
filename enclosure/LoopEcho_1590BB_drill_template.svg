@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="143.5mm" height="180.0mm" viewBox="-71.75 -100.0 143.5 180.0" font-family="Helvetica">
+<rect x="-71.75" y="-100.0" width="143.5" height="180.0" fill="white"/>
+<rect x="-59.75" y="-47.0" width="119.5" height="94.0" rx="5.0" fill="none" stroke="black" stroke-width="0.3"/>
+<text x="-59.75" y="-94.0" font-size="3">Loop Echo — 1590BB face (side A), outside view, landscape, 1:1. Origin = centre.</text>
+<line x1="-3" y1="0" x2="3" y2="0" stroke="#999" stroke-width="0.15"/><line x1="0" y1="-3" x2="0" y2="3" stroke="#999" stroke-width="0.15"/>
+<circle cx="-32.0" cy="-15.0" r="3.75" fill="none" stroke="black" stroke-width="0.25"/>
+<line x1="-33.0" y1="-15.0" x2="-31.0" y2="-15.0" stroke="red" stroke-width="0.15"/><line x1="-32.0" y1="-16.0" x2="-32.0" y2="-14.0" stroke="red" stroke-width="0.15"/>
+<text x="-32.0" y="-8.65" font-size="2" text-anchor="middle">TIME Ø7.5</text>
+<circle cx="0.0" cy="-15.0" r="3.75" fill="none" stroke="black" stroke-width="0.25"/>
+<line x1="-1.0" y1="-15.0" x2="1.0" y2="-15.0" stroke="red" stroke-width="0.15"/><line x1="0.0" y1="-16.0" x2="0.0" y2="-14.0" stroke="red" stroke-width="0.15"/>
+<text x="0.0" y="-8.65" font-size="2" text-anchor="middle">REPEAT Ø7.5</text>
+<circle cx="32.0" cy="-15.0" r="3.75" fill="none" stroke="black" stroke-width="0.25"/>
+<line x1="31.0" y1="-15.0" x2="33.0" y2="-15.0" stroke="red" stroke-width="0.15"/><line x1="32.0" y1="-16.0" x2="32.0" y2="-14.0" stroke="red" stroke-width="0.15"/>
+<text x="32.0" y="-8.65" font-size="2" text-anchor="middle">MIX Ø7.5</text>
+<circle cx="-32.0" cy="3.0" r="3.75" fill="none" stroke="black" stroke-width="0.25"/>
+<line x1="-33.0" y1="3.0" x2="-31.0" y2="3.0" stroke="red" stroke-width="0.15"/><line x1="-32.0" y1="2.0" x2="-32.0" y2="4.0" stroke="red" stroke-width="0.15"/>
+<text x="-32.0" y="9.35" font-size="2" text-anchor="middle">RATE Ø7.5</text>
+<circle cx="0.0" cy="3.0" r="3.75" fill="none" stroke="black" stroke-width="0.25"/>
+<line x1="-1.0" y1="3.0" x2="1.0" y2="3.0" stroke="red" stroke-width="0.15"/><line x1="0.0" y1="2.0" x2="0.0" y2="4.0" stroke="red" stroke-width="0.15"/>
+<text x="0.0" y="9.35" font-size="2" text-anchor="middle">DEPTH Ø7.5</text>
+<circle cx="32.0" cy="3.0" r="3.75" fill="none" stroke="black" stroke-width="0.25"/>
+<line x1="31.0" y1="3.0" x2="33.0" y2="3.0" stroke="red" stroke-width="0.15"/><line x1="32.0" y1="2.0" x2="32.0" y2="4.0" stroke="red" stroke-width="0.15"/>
+<text x="32.0" y="9.35" font-size="2" text-anchor="middle">TONE Ø7.5</text>
+<circle cx="-28.0" cy="14.2" r="1.6" fill="none" stroke="black" stroke-width="0.25"/>
+<line x1="-29.0" y1="14.2" x2="-27.0" y2="14.2" stroke="red" stroke-width="0.15"/><line x1="-28.0" y1="13.2" x2="-28.0" y2="15.2" stroke="red" stroke-width="0.15"/>
+<text x="-28.0" y="18.4" font-size="2" text-anchor="middle">LOOP LED Ø3.2</text>
+<circle cx="28.0" cy="14.2" r="1.6" fill="none" stroke="black" stroke-width="0.25"/>
+<line x1="27.0" y1="14.2" x2="29.0" y2="14.2" stroke="red" stroke-width="0.15"/><line x1="28.0" y1="13.2" x2="28.0" y2="15.2" stroke="red" stroke-width="0.15"/>
+<text x="28.0" y="18.4" font-size="2" text-anchor="middle">BYPASS LED Ø3.2</text>
+<circle cx="-28.0" cy="26.0" r="6.1" fill="none" stroke="black" stroke-width="0.25"/>
+<line x1="-29.0" y1="26.0" x2="-27.0" y2="26.0" stroke="red" stroke-width="0.15"/><line x1="-28.0" y1="25.0" x2="-28.0" y2="27.0" stroke="red" stroke-width="0.15"/>
+<text x="-28.0" y="34.7" font-size="2" text-anchor="middle">LOOP footswitch Ø12.2</text>
+<circle cx="28.0" cy="26.0" r="6.1" fill="none" stroke="black" stroke-width="0.25"/>
+<line x1="27.0" y1="26.0" x2="29.0" y2="26.0" stroke="red" stroke-width="0.15"/><line x1="28.0" y1="25.0" x2="28.0" y2="27.0" stroke="red" stroke-width="0.15"/>
+<text x="28.0" y="34.7" font-size="2" text-anchor="middle">BYPASS footswitch Ø12.2</text>
+<rect x="-59.75" y="-81.0" width="119.5" height="34.0" fill="none" stroke="black" stroke-width="0.2" stroke-dasharray="1.5 1"/>
+<text x="-59.75" y="-83.0" font-size="2.5">Jack wall (unfolded; face edge at the bottom): ESTIMATED depths, test-fit one jack first</text>
+<circle cx="-39.3" cy="-69.5" r="5.75" fill="none" stroke="black" stroke-width="0.25"/>
+<line x1="-40.3" y1="-69.5" x2="-38.3" y2="-69.5" stroke="red" stroke-width="0.15"/><line x1="-39.3" y1="-70.5" x2="-39.3" y2="-68.5" stroke="red" stroke-width="0.15"/>
+<text x="-39.3" y="-61.15" font-size="2" text-anchor="middle">OUT Ø11.5</text>
+<circle cx="-16.9" cy="-69.5" r="5.75" fill="none" stroke="black" stroke-width="0.25"/>
+<line x1="-17.9" y1="-69.5" x2="-15.899999999999999" y2="-69.5" stroke="red" stroke-width="0.15"/><line x1="-16.9" y1="-70.5" x2="-16.9" y2="-68.5" stroke="red" stroke-width="0.15"/>
+<text x="-16.9" y="-61.15" font-size="2" text-anchor="middle">RETURN Ø11.5</text>
+<circle cx="0.0" cy="-68.0" r="4.05" fill="none" stroke="black" stroke-width="0.25"/>
+<line x1="-1.0" y1="-68.0" x2="1.0" y2="-68.0" stroke="red" stroke-width="0.15"/><line x1="0.0" y1="-69.0" x2="0.0" y2="-67.0" stroke="red" stroke-width="0.15"/>
+<text x="0.0" y="-61.35" font-size="2" text-anchor="middle">DC 9V Ø8.1</text>
+<circle cx="16.9" cy="-69.5" r="5.75" fill="none" stroke="black" stroke-width="0.25"/>
+<line x1="15.899999999999999" y1="-69.5" x2="17.9" y2="-69.5" stroke="red" stroke-width="0.15"/><line x1="16.9" y1="-70.5" x2="16.9" y2="-68.5" stroke="red" stroke-width="0.15"/>
+<text x="16.9" y="-61.15" font-size="2" text-anchor="middle">SEND Ø11.5</text>
+<circle cx="39.3" cy="-69.5" r="5.75" fill="none" stroke="black" stroke-width="0.25"/>
+<line x1="38.3" y1="-69.5" x2="40.3" y2="-69.5" stroke="red" stroke-width="0.15"/><line x1="39.3" y1="-70.5" x2="39.3" y2="-68.5" stroke="red" stroke-width="0.15"/>
+<text x="39.3" y="-61.15" font-size="2" text-anchor="middle">IN Ø11.5</text>
+<rect x="-59.75" y="55.0" width="50" height="10" fill="none" stroke="black" stroke-width="0.2"/>
+<text x="-58.75" y="61.2" font-size="2.5">Check: this box = 50 × 10 mm when printed</text>
+</svg>

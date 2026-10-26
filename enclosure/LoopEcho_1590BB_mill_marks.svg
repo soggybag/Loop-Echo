@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="119.5mm" height="94.0mm" viewBox="0 0 119.5 94.0">
+<circle id="TIME" cx="27.750" cy="32.000" r="3.750" fill="none" stroke="#000" stroke-width="0.1"/>
+<circle id="TIME_centre" cx="27.750" cy="32.000" r="0.5" fill="none" stroke="#000" stroke-width="0.1"/>
+<circle id="REPEAT" cx="59.750" cy="32.000" r="3.750" fill="none" stroke="#000" stroke-width="0.1"/>
+<circle id="REPEAT_centre" cx="59.750" cy="32.000" r="0.5" fill="none" stroke="#000" stroke-width="0.1"/>
+<circle id="MIX" cx="91.750" cy="32.000" r="3.750" fill="none" stroke="#000" stroke-width="0.1"/>
+<circle id="MIX_centre" cx="91.750" cy="32.000" r="0.5" fill="none" stroke="#000" stroke-width="0.1"/>
+<circle id="RATE" cx="27.750" cy="50.000" r="3.750" fill="none" stroke="#000" stroke-width="0.1"/>
+<circle id="RATE_centre" cx="27.750" cy="50.000" r="0.5" fill="none" stroke="#000" stroke-width="0.1"/>
+<circle id="DEPTH" cx="59.750" cy="50.000" r="3.750" fill="none" stroke="#000" stroke-width="0.1"/>
+<circle id="DEPTH_centre" cx="59.750" cy="50.000" r="0.5" fill="none" stroke="#000" stroke-width="0.1"/>
+<circle id="TONE" cx="91.750" cy="50.000" r="3.750" fill="none" stroke="#000" stroke-width="0.1"/>
+<circle id="TONE_centre" cx="91.750" cy="50.000" r="0.5" fill="none" stroke="#000" stroke-width="0.1"/>
+<circle id="LOOP_LED" cx="31.750" cy="61.200" r="1.600" fill="none" stroke="#000" stroke-width="0.1"/>
+<circle id="LOOP_LED_centre" cx="31.750" cy="61.200" r="0.5" fill="none" stroke="#000" stroke-width="0.1"/>
+<circle id="BYPASS_LED" cx="87.750" cy="61.200" r="1.600" fill="none" stroke="#000" stroke-width="0.1"/>
+<circle id="BYPASS_LED_centre" cx="87.750" cy="61.200" r="0.5" fill="none" stroke="#000" stroke-width="0.1"/>
+<circle id="LOOP_footswitch" cx="31.750" cy="73.000" r="6.100" fill="none" stroke="#000" stroke-width="0.1"/>
+<circle id="LOOP_footswitch_centre" cx="31.750" cy="73.000" r="0.5" fill="none" stroke="#000" stroke-width="0.1"/>
+<circle id="BYPASS_footswitch" cx="87.750" cy="73.000" r="6.100" fill="none" stroke="#000" stroke-width="0.1"/>
+<circle id="BYPASS_footswitch_centre" cx="87.750" cy="73.000" r="0.5" fill="none" stroke="#000" stroke-width="0.1"/>
+</svg>
