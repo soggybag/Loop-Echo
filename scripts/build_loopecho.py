@@ -8,6 +8,7 @@ v0.1 (breadboard, TRS insert) is kept as build_loopecho_v0.1.py.
   - LFO U4 (LM358: integrator + Schmitt, RATE 47k + B1M, 1u) -> DEPTH -> 33k + 10u -> TMIN (the TIME / 2k7 node):
     even modulation depth across TIME (Dragonfish)
   - Power: SS14, 2 x 22u bulk, VB 10k/10k + 47u; status LED; 1x6 header to the SwitchPCB v2 (IJ IN LED GND OUT OJ)
+  - LOOP footswitch: a second SwitchPCB v2 on J7 picks RET = SEND (off, SEND jack grounded) or the RETURN jack (on); LOOP LED D7
   - v1.0 board: 1590BB landscape, all five jacks on the top wall (outside view): OUT  RETURN  DC  SEND  IN
 usage: build_loopecho.py <out.kicad_sch>"""
 from sch import *
@@ -110,10 +111,10 @@ for pin, net in (('1', 'IJ'), ('2', 'IN'), ('3', 'LED_K'), ('5', 'OUT'), ('6', '
 q = P('J1', '4'); W(q, (q[0] - g(8), q[1]), (q[0] - g(8), q[1] + g(4))); GND((q[0] - g(8), q[1] + g(4)))
 # board-mounted jacks (PJ-646F stereo switched; outside view of the top wall: OUT  RETURN  DC  SEND  IN)
 JK = (('J2', 'INPUT', 38, 67, {'T': 'IJ'}), ('J3', 'OUTPUT', 50, 67, {'T': 'OJ'}),
-      ('J4', 'SEND', 38, 85, {'T': 'SEND'}), ('J5', 'RETURN', 50, 85, {'T': 'RET', 'TN': 'SEND'}))
+      ('J4', 'SEND', 38, 85, {'T': 'SENDJ'}), ('J5', 'RETURN', 50, 85, {'T': 'RETJ', 'TN': 'SEND'}))
 for ref, name, x, y, nets in JK:
     s.part(ref, 'Connector_Audio', 'AudioJack3_Switch', name, g(x), g(y), 0, fp='SuperFreq:Jack_6.35mm_PJ-646F_Horizontal',
-           desc=f'{name} jack: Tayda A-6728 (PJ-646F)' + (': no plug -> tip switch ties RET to SEND (internal loop)' if ref == 'J5' else ''),
+           desc=f'{name} jack: Tayda A-6728 (PJ-646F)' + (': no plug -> tip switch ties RETJ to SEND (internal loop)' if ref == 'J5' else ''),
            text=((g(x - 1.5), g(y - 4.4)), (g(x - 1.5), g(y - 3.4)), 'left'), bom=False)
     for pin in ('T', 'TN', 'R', 'RN', 'SN'):
         q = P(ref, pin)
@@ -247,7 +248,7 @@ for dx, rot in ((0, 90), (4, 270)):
 W(L, (L[0] + g(8), L[1]))
 rv = pot('B10k', 'REPEAT', L[0] + g(8), L[1] + 3.81, text=((L[0] + g(11), L[1] + g(3)), (L[0] + g(11), L[1] + g(4.5)), 'left'))
 GND(P(rv, '1')); lab_at(P(rv, '2'), 'RPT', 3)
-s.text('No plug in RETURN: the jack\'s switch ties RET to SEND (internal path). TONE acts on every repeat in both cases.', g(140), g(150))
+s.text('LOOP footswitch off: RET = SEND (internal path), SEND jack grounded. On: RET = RETURN jack; no plug in RETURN = its switch ties it to SEND. TONE acts on every repeat in all cases.', g(140), g(150))
 s.text('A fuzz in the loop adds gain every pass: the 1N4148W pair caps the loop at about +-0.6 V.', g(140), g(153))
 
 # ================================================================ LFO (U4, LM358) -> TMIN
@@ -282,6 +283,18 @@ w = P(rv, '2')
 r = Rh('33k', w[0] + g(1) + 3.81, w[1], d='LFO injection (~+-5 % delay change at full DEPTH)'); W(w, P(r, '1'))
 c = Ch('10u', P(r, '2')[0] + g(1) + 3.81, w[1], d='Coupling into TMIN (ceramic, non-polar)'); W(P(r, '2'), P(c, '1'))
 lab_at(P(c, '2'), 'TMIN', 3)
+
+# ================================================================ LOOP FOOTSWITCH (second 3PDT + SwitchPCB v2, wired as a loop selector)
+s.box('LOOP FOOTSWITCH (2nd SwitchPCB v2): RET = SEND or RETURN', g(208), g(96), g(262), g(130))
+s.text('SwitchPCB pads: OJ = OUT when engaged, IJ when bypassed; IN = IJ when engaged, GND when bypassed; LED to GND when engaged.', g(210), g(101))
+s.part('R33', 'Device', 'R', '4k7', g(220), g(109.5), 0, fp=FR, lcsc=LR['4k7'], desc='LOOP LED current', text='l'); V9(P('R33', '1'))
+s.part('D7', 'Device', 'LED', 'LED', g(220), g(115.5), 90, fp='LED_THT:LED_D3.0mm', desc='LOOP LED (panel); cathode to the LOOP footswitch via J7', text='r', bom=False)
+W(P('R33', '2'), P('D7', '2')); W(P('D7', '1'), (g(220), g(119.5)), (g(223), g(119.5))); lab('LED2_K', (g(223), g(119.5)))
+s.part('J7', 'Connector_Generic', 'Conn_01x06', 'LOOP SW', g(246), g(112), 0, fp='Connector_PinHeader_2.54mm:PinHeader_1x06_P2.54mm_Vertical',
+       desc='To the LOOP SwitchPCB v2: 1 IJ = SEND, 2 IN = SEND jack, 3 LED2_K, 4 GND, 5 OUT = RETURN jack, 6 OJ = RET', text=((g(248), g(108)), (g(248), g(109.2)), 'left'), bom=False)
+for pin, net in (('1', 'SEND'), ('2', 'SENDJ'), ('3', 'LED2_K'), ('5', 'RETJ'), ('6', 'RET')):
+    q = P('J7', pin); W(q, (q[0] - g(3), q[1])); lab(net, (q[0] - g(3), q[1]), 'l')
+q = P('J7', '4'); W(q, (q[0] - g(8), q[1]), (q[0] - g(8), q[1] + g(4))); GND((q[0] - g(8), q[1] + g(4)))
 
 s.write(OUT, title_block={'title': 'Loop Echo', 'rev': '1.0', 'company': 'Super-Freq', 'date': '2026-10-25',
                          'comments': ['PT2399 delay, effects loop in the feedback (SEND / switched RETURN), TONE on every repeat, TIME modulation',

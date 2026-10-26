@@ -4,7 +4,7 @@ A single-PT2399 delay with an **effects loop in the feedback path**:
 - only the repeats circulate through the loop;
 - the first echo is clean, and each later echo goes through the external effect again: fuzz degrades, a filter re-voices, a pitch shifter cascades;
 - delay-time modulation (RATE, DEPTH);
-- true bypass.
+- true bypass, plus a **LOOP footswitch** that switches the effects loop in or out of the repeats.
 
 The PT2399 network is taken from your Small Time (`~/Documents/eagle/projects/Small Time/`, 2022), without its tails JFET.
 
@@ -16,4 +16,4 @@ The PT2399 network is taken from your Small Time (`~/Documents/eagle/projects/Sm
 
 **Jacks (v1.0):** all board-mounted on the top wall of a **1590BB (landscape)**, outside view left → right: **OUT · RETURN · DC · SEND · IN** (Tayda A-6728 PJ-646F stereo switched jacks, A-4118 DC jack). RETURN is switched: with no plug, its tip switch ties RETURN to SEND, so the loop closes internally and it's a normal delay.
 
-**Status:** **v1.0 SMD schematic (2026-10-25)**, to be ordered as a prototype (not breadboarded; the PT2399 network is proven in Small Time). ERC 0. All SMD parts are JLC basic except the PT2399-SN (C126407). Changes from v0.1: SEND / switched RETURN instead of the TRS insert; **TONE** in the feedback path (B50k + 2k2 into 10n, ~7 kHz-300 Hz, on every repeat, loop or internal); LFO into the TIME / 2k7 node (even depth, Dragonfish) on an LM358; AMS1117-5.0; SS14; status LED + footswitch header. v0.1 generator kept as `scripts/build_loopecho_v0.1.py`. **Board (2026-10-25):** `LoopEcho.kicad_pcb`, 1590BB landscape, routed: DRC 0 errors / 0 unconnected, parity clean. Panel layout and drill notes in the Design Notes (*Board*). Next: silk pass, then JLC files and a drill template.
+**Status:** **v1.0 SMD schematic (2026-10-25)**, to be ordered as a prototype (not breadboarded; the PT2399 network is proven in Small Time). ERC 0. All SMD parts are JLC basic except the PT2399-SN (C126407). Changes from v0.1: SEND / switched RETURN instead of the TRS insert; **TONE** in the feedback path (B50k + 2k2 into 10n, ~7 kHz-300 Hz, on every repeat, loop or internal); LFO into the TIME / 2k7 node (even depth, Dragonfish) on an LM358; AMS1117-5.0; SS14; status LED + footswitch header. v0.1 generator kept as `scripts/build_loopecho_v0.1.py`. **Board (2026-10-25):** `LoopEcho.kicad_pcb`, 1590BB landscape, 100 × 83.5 mm, two footswitches (LOOP left, BYPASS right; a SwitchPCB v2 on each), routed: DRC 0 errors / 0 unconnected, parity clean. Panel layout and drill notes in the Design Notes (*Board*). Next: silk pass, then JLC files and a drill template.

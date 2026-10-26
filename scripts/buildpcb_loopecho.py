@@ -2,7 +2,9 @@
 top (long) wall. Box centre = board (150, 100). Pots / LED on the back (B side, through the face); SMD + jacks on the front
 (F side, facing into the box). Outside view of the face: X = 150 - x, Y = 100 - y.
 Run with KiCad's python:  buildpcb_loopecho.py <netlist> <template.kicad_pcb (any board: setup copied)> <out.kicad_pcb>
-Don't re-run after editing the board in KiCad: it overwrites it."""
+Don't re-run after editing the board in KiCad: it overwrites it.
+OUT OF DATE (2026-10-25): the board was then hand-edited (J1 by the user, 100 mm outline) and reworked for two footswitches
+(second notch, J7 / D7 / R33, clusters re-placed). This script only builds the first, one-footswitch layout."""
 import sys, math, pcbnew
 import importlib.util
 _sp = importlib.util.spec_from_file_location('sx_local', __file__.rsplit('/', 1)[0] + '/sx.py'); _sx = importlib.util.module_from_spec(_sp); _sp.loader.exec_module(_sx)
